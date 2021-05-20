@@ -1,0 +1,5 @@
+input#id_name
+//input[contains(@name, "surname")]
+input.form-control.third
+//input[@telephone="tvoe_telephone"]
+//input[contains(@class, "form-control second")]
