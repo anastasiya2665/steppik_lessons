@@ -10,9 +10,12 @@ class LoginPageLocators():
     REGISTRATION_FORM = (By.CSS_SELECTOR, "#register_form")
 
 class ProductPageLocators():
-    ADD_TO_BASKET_BUTTON = (By.CSS_SELECTOR, ".add-to-basket button")
-    ADDED_PRODUCT_TEXT = (By.CSS_SELECTOR, ".alert-success:nth-child(1) strong")
-    BASKET_PRICE_TEXT = (By.CSS_SELECTOR, ".alertinner p strong")
-    PRODUCT_NAME_TEXT = (By.CSS_SELECTOR, ".product_main h1")
-    PRODUCT_PRICE_TEXT = (By.CSS_SELECTOR, ".product_main .price_color")
+    ADD_TO_BASKET_BUTTON = (By.CLASS_NAME, "btn-add-to-basket")
+    ITEM_NAME = (By.CSS_SELECTOR, '.product_main>h1')
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, '.alertinner>strong:nth-child(1)')
+    PRICE = (By.CSS_SELECTOR, '.product_main>.price_color')
+    PRICE_MESSAGE = (By.CSS_SELECTOR, '.alertinner>p>strong')
+    BASKET_BUTTON = (By.CSS_SELECTOR, '.basket-mini>span>a')
+    EMPTY_BASKET = (By.ID, "content_inner")
+    BASKET_EMPTY_MESSAGE = (By.XPATH, '//div[@id="content_inner"]//p[contains(text(),"Your basket is empty.")]')
 
