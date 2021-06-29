@@ -1,10 +1,11 @@
+from selenium.common.exceptions import NoSuchElementException
 from .base_page import BasePage
 from .locators import ProductPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC, expected_conditions
 import time
 
-
+#исправить методы в классах в алфавитном порядке
 class ProductPage(BasePage):
     def add_to_basket(self):
         try:
@@ -54,3 +55,14 @@ class ProductPage(BasePage):
         price = self.get_price()
         price_message = self.get_price_from_message()
         assert price == price_message, 'Price are not same'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_dissapear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.ADDED_PRODUCT_TEXT), \
+            "Success message is presented, but should not be"
+
+
+
