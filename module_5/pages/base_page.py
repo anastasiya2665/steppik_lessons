@@ -60,6 +60,9 @@ class BasePage():
     def should_be_authorized_user(self):
         assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
                                                                      " probably unauthorised user"
+    def should_be_not_authorized_user(self):
+        assert self.is_not_element_present(*BasePageLocators.USER_ICON), "User icon is  presented," \
+                                                                     " probably unauthorised fool user"
 
     #исчезновение элемента
     def is_disappeared(self, how, what, timeout=4):
