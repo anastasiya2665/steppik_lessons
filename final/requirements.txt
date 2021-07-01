@@ -1,0 +1,6 @@
+allure-pytest==2.9.43
+python==3.7.3
+pytest==6.2.4
+py==1.10.0
+pluggy==0.13.1
+selenium==3.14.0
