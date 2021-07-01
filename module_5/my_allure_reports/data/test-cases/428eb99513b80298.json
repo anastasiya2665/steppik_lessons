@@ -1,0 +1,110 @@
+{
+  "uid" : "428eb99513b80298",
+  "name" : "test_guest_can_go_to_login_page",
+  "fullName" : "module_5.test_login_page.TestLoginPage#test_guest_can_go_to_login_page",
+  "historyId" : "e6d89105cf7e54459950defdf0794f9b",
+  "time" : {
+    "start" : 1625156432565,
+    "stop" : 1625156437762,
+    "duration" : 5197
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "browser",
+    "time" : {
+      "start" : 1625156431213,
+      "stop" : 1625156432563,
+      "duration" : 1350
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  } ],
+  "testStage" : {
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "20826685e881e851",
+      "name" : "stdout",
+      "source" : "20826685e881e851.txt",
+      "type" : "text/plain",
+      "size" : 49
+    } ],
+    "parameters" : [ ],
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true,
+    "stepsCount" : 0
+  },
+  "afterStages" : [ {
+    "name" : "browser::0",
+    "time" : {
+      "start" : 1625156437763,
+      "stop" : 1625156439988,
+      "duration" : 2225
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "module_5"
+  }, {
+    "name" : "suite",
+    "value" : "test_login_page"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestLoginPage"
+  }, {
+    "name" : "host",
+    "value" : "LAPTOP-K3HBGM89"
+  }, {
+    "name" : "thread",
+    "value" : "20568-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "module_5.test_login_page"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ {
+      "uid" : "678a94e49815e6c0",
+      "status" : "passed",
+      "time" : {
+        "start" : 1625117315856,
+        "stop" : 1625117317945,
+        "duration" : 2089
+      }
+    } ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "428eb99513b80298.json",
+  "parameterValues" : [ ]
+}
