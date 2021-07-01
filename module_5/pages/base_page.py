@@ -1,11 +1,11 @@
 import math
+import re
 import time
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, NoAlertPresentException, StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from .locators import BasePageLocators
-from .locators import MainPageLocators
+# from .locators import MainPageLocators
+from selenium.webdriver.support.ui import WebDriverWait
 
 #исправить методы в классах в алфавитном порядке
 
@@ -15,25 +15,9 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    #открыть текщуюю страницу
     def open(self):
          self.browser.get(self.url)
-
-    def go_to_login_page(self):
-        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        link.click()
-
-    def go_to_basket(self):
-        basket_link = self.browser.find_element(*BasePageLocators.BASKET_VIEW_BUTTON)
-        basket_link.click()
-
-    def check_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), 'Login link are not presented'
-
-    def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
-
-    def is_string_in_current_url(self, string):
-         return string in self.browser.current_url
 
     def is_element_present(self, how, what):
         try:
@@ -49,16 +33,44 @@ class BasePage():
             return True
         return False
 
+    #кликаем по логин ссылке
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    #проверяем что ссылка логин сушествует
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def go_to_basket(self):
+        basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        basket_link.click()
+
+    def is_text_present_at(self, where, what, explicit_timeout=12):
+        try:
+            WebDriverWait(self.browser, explicit_timeout).until(
+                wait_for_text_to_match(where, what))
+        except TimeoutException:
+            return False
+        return True
+
+    def check_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), 'Login link are not presented'
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
+
+    #исчезновение элемента
     def is_disappeared(self, how, what, timeout=4):
         try:
             WebDriverWait(self.browser, timeout, 1, TimeoutException). \
                 until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
-
         return True
 
-
+    #формула
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2]
@@ -72,22 +84,17 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
-            
-    #из иэйн пейдж
 
-    def go_to_login_page(self):
-        link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
-        link.click()
-        link.click()
-        #return LoginPage(browser=self.browser, url=self.browser.current_url)
 
-    def should_be_login_link(self):
-        assert self.is_element_present(*MainPageLocators.LOGIN_LINK), "Login link is not presented"
+     #ожидание подсчета
+class wait_for_text_to_match:
+        def __init__(self, locator, pattern):
+                self.locator = locator
+                self.pattern = re.compile(pattern)
 
-    def go_to_basket_page(self):
-        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
-        link.click()
-
-    def go_to_basket(self):
-        basket_link = self.browser.find_element(*BasePageLocators.BASKET_VIEW_BUTTON)
-        basket_link.click()
+        def __call__(self, driver):
+            try:
+                element_text = EC._find_element(driver, self.locator).text
+                return self.pattern.search(element_text)
+            except StaleElementReferenceException:
+                return False

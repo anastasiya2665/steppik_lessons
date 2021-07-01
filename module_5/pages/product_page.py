@@ -3,7 +3,7 @@ from .base_page import BasePage
 from .locators import ProductPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC, expected_conditions
-import time
+
 
 #исправить методы в классах в алфавитном порядке
 class ProductPage(BasePage):
@@ -14,24 +14,22 @@ class ProductPage(BasePage):
         except NoSuchElementException:
             return False
 
-
     def get_product_name(self):
         try:
-            return str(self.browser.find_element(*ProductPageLocators.ITEM_NAME).text)
+            return str(self.browser.find_element(*ProductPageLocators.PRODUCT_TITLE).text)
         except NoSuchElementException:
             return None
 
     def get_price(self):
         try:
-             return str(self.browser.find_element(*ProductPageLocators.PRICE).text)
+             return str(self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text)
         except NoSuchElementException:
              return None
-
 
     def check_item_name(self):
         result = self.get_success_message_after_add_product_to_basket()
         product = self.get_product_name()
-        assert result == product, 'Product name are not same'
+        assert result == product, "Product name are not same"
 
     def get_success_message_after_add_product_to_basket(self):
         WebDriverWait(self.browser, 20).until(
@@ -40,8 +38,6 @@ class ProductPage(BasePage):
             return str(self.browser.find_element(*ProductPageLocators.SUCCESS_MESSAGE).text)
         except NoSuchElementException:
             return None
-
-
 
     def get_price_from_message(self):
         WebDriverWait(self.browser, 20).until(
@@ -54,14 +50,14 @@ class ProductPage(BasePage):
     def check_price(self):
         price = self.get_price()
         price_message = self.get_price_from_message()
-        assert price == price_message, 'Price are not same'
+        assert price == price_message, "Price are not same"
 
     def should_not_be_success_message(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
     def should_dissapear_success_message(self):
-        assert self.is_disappeared(*ProductPageLocators.ADDED_PRODUCT_TEXT), \
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
 
